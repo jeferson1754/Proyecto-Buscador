@@ -27,6 +27,8 @@
         if (isset($_GET['query'])) {
             // Recuperar el término de búsqueda
             $query = $_GET['query'];
+        } else {
+            $query = "";
         }
 
 
