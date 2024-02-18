@@ -61,7 +61,7 @@
                 </thead>
                 <?php
 
-                $sql = "SELECT op.ID,op.Nombre,op.ID_Anime,op.Opening,op.Cancion,autor.Autor,op.Ano,temporada.Temporada,op.Estado,op.Link,op.Link_Iframe,op.Mix,op.Estado_Link,op.mostrar FROM `op` JOIN temporada ON op.Temporada=temporada.ID JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+                $sql = "SELECT * FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
                 //echo $sql;
 
                 $result = mysqli_query($conexion, $sql);
@@ -101,7 +101,7 @@
                 </thead>
                 <?php
 
-                $sql = "SELECT ed.ID,ed.Nombre,ed.ID_Anime,ed.Ending,ed.Cancion,autor.Autor,ed.Ano,temporada.Temporada,ed.Estado,ed.Link,ed.Link_Iframe,ed.Mix,ed.Estado_Link,ed.mostrar FROM `ed` JOIN temporada ON ed.Temporada=temporada.ID JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+                $sql = "SELECT * FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
                 //echo $sql;
 
                 $result = mysqli_query($conexion, $sql);
@@ -142,7 +142,7 @@
                 </thead>
                 <?php
 
-                $sql = "SELECT op.ID,op.Nombre,op.ID_Anime,op.Opening,op.Cancion,autor.Autor,op.Ano,temporada.Temporada,op.Estado,op.Link,op.Link_Iframe,op.Mix,op.Estado_Link,op.mostrar FROM `op` JOIN temporada ON op.Temporada=temporada.ID JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+                $sql = "SELECT * FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
                 //echo $sql;
 
                 $result = mysqli_query($conexion, $sql);
@@ -182,7 +182,7 @@
                 </thead>
                 <?php
 
-                $sql = "SELECT ed.ID,ed.Nombre,ed.ID_Anime,ed.Ending,ed.Cancion,autor.Autor,ed.Ano,temporada.Temporada,ed.Estado,ed.Link,ed.Link_Iframe,ed.Mix,ed.Estado_Link,ed.mostrar FROM `ed` JOIN temporada ON ed.Temporada=temporada.ID JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+                $sql = "SELECT * FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
                 //echo $sql;
 
                 $result = mysqli_query($conexion, $sql);
@@ -223,7 +223,8 @@
                 </thead>
                 <?php
 
-                $sql = "SELECT op.ID,op.Nombre,op.ID_Anime,op.Opening,op.Cancion,autor.Autor,op.Ano,temporada.Temporada,op.Estado,op.Link,op.Link_Iframe,op.Mix,op.Estado_Link,op.mostrar FROM `op` JOIN temporada ON op.Temporada=temporada.ID JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+
+                $sql = "SELECT * FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
                 //echo $sql;
 
                 $result = mysqli_query($conexion, $sql);
@@ -262,8 +263,7 @@
                     </tr>
                 </thead>
                 <?php
-
-                $sql = "SELECT ed.ID,ed.Nombre,ed.ID_Anime,ed.Ending,ed.Cancion,autor.Autor,ed.Ano,temporada.Temporada,ed.Estado,ed.Link,ed.Link_Iframe,ed.Mix,ed.Estado_Link,ed.mostrar FROM `ed` JOIN temporada ON ed.Temporada=temporada.ID JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+                $sql = "SELECT * FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
                 //echo $sql;
 
                 $result = mysqli_query($conexion, $sql);
