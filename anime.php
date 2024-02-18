@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/style.css?v=<?php echo time(); ?>">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Buscador General de Anime</title>
 </head>
 
 <body>
@@ -52,6 +52,10 @@
             $sql_peliculas = "SELECT * FROM peliculas WHERE Nombre LIKE '%$query%' ORDER BY `peliculas`.`ID` DESC limit $limit";
             $resultado_peliculas = mysqli_query($conexion, $sql_peliculas);
 
+            // Consulta para buscar en la tabla horarios
+            $sql_horario = "SELECT horario.Nombre,num_horario.* FROM horario INNER JOIN num_horario ON horario.num_horario = num_horario.Num WHERE Nombre LIKE '%$query%' ORDER BY `horario`.`ID` DESC limit $limit";
+            $resultado_horario = mysqli_query($conexion, $sql_horario);
+
 
             // Variable para controlar si se encontraron resultados en cada tabla
             $resultados_encontrados_mangas = false;
@@ -61,9 +65,10 @@
             $resultados_encontrados_op = false;
             $resultados_encontrados_ed = false;
             $resultados_encontrados_peliculas = false;
+            $resultados_encontrados_horario = false;
 
             // Mostrar los resultados de mangas
-            echo "<div class='persona-container'>";
+            echo "<div class='persona-container rojo'>";
             echo "<div class='nombre-persona'> Mangas </div>";
             while ($fila = mysqli_fetch_assoc($resultado_mangas)) {
                 echo "<div class='contenido'><br>";
@@ -81,7 +86,7 @@
             echo "</div>";
 
             // Mostrar los resultados de anime
-            echo "<div class='persona-container'>";
+            echo "<div class='persona-container verde'>";
             echo "<div class='nombre-persona'> Anime<br> </div>";
             while ($fila = mysqli_fetch_assoc($resultado_anime)) {
                 echo "<div class='contenido'><br>";
@@ -99,7 +104,7 @@
             echo "</div>";
 
             // Mostrar los resultados de pendientes_mangas
-            echo "<div class='persona-container'>";
+            echo "<div class='persona-container cafe'>";
             echo "<div class='nombre-persona'> Pendientes Mangas<br> </div>";
             while ($fila = mysqli_fetch_assoc($resultado_pendientes)) {
                 echo "<div class='contenido'><br>";
@@ -117,7 +122,7 @@
             echo "</div>";
 
             // Mostrar los resultados de op
-            echo "<div class='persona-container'>";
+            echo "<div class='persona-container azul'>";
             echo "<div class='nombre-persona'> Openings<br> </div>";
             while ($fila = mysqli_fetch_assoc($resultado_op)) {
                 echo "<div class='contenido'><br>";
@@ -135,7 +140,7 @@
             echo "</div>";
 
             // Mostrar los resultados de ed
-            echo "<div class='persona-container'>";
+            echo "<div class='persona-container naranjo'>";
             echo "<div class='nombre-persona'> Endings<br> </div>";
             while ($fila = mysqli_fetch_assoc($resultado_ed)) {
                 echo "<div class='contenido'><br>";
@@ -153,7 +158,7 @@
             echo "</div>";
 
             // Mostrar los resultados de peliculas
-            echo "<div class='persona-container'>";
+            echo "<div class='persona-container gris'>";
             echo "<div class='nombre-persona'> Peliculas<br> </div>";
             while ($fila = mysqli_fetch_assoc($resultado_peliculas)) {
                 echo "<div class='contenido'><br>";
@@ -164,6 +169,24 @@
                 $resultados_encontrados_peliculas = true;
             }
             if (!$resultados_encontrados_peliculas) {
+                echo "<div class='contenido'>";
+                echo "No se encontraron resultados.<br>";
+                echo "</div>";
+            }
+            echo "</div>";
+
+            // Mostrar los resultados de horario
+            echo "<div class='persona-container amarillo'>";
+            echo "<div class='nombre-persona'> Horario<br> </div>";
+            while ($fila = mysqli_fetch_assoc($resultado_horario)) {
+                echo "<div class='contenido'><br>";
+                echo "<a href='/Anime/Horarios/horarios.php?anis=" . $fila['Num'] . "&filtrar=' target='_blanck'>";
+                echo $fila['Nombre'] . " ".$fila['Temporada'] . " " . $fila['Ano'] . "<br>";
+                echo "</a>";
+                echo "</div>";
+                $resultados_encontrados_horario = true;
+            }
+            if (!$resultados_encontrados_horario) {
                 echo "<div class='contenido'>";
                 echo "No se encontraron resultados.<br>";
                 echo "</div>";

@@ -13,7 +13,7 @@
 
 <body>
     <form action="#" method="GET" class="search-form">
-        <input type="search" name="query" placeholder="Buscar...">
+        <input type="search" name="key" placeholder="Buscar...">
         <button type="submit"><i class="fas fa-search"></i></button>
     </form>
 
@@ -24,9 +24,9 @@
 
         $limit = 5;
 
-        if (isset($_GET['query'])) {
+        if (isset($_GET['key'])) {
             // Recuperar el término de búsqueda
-            $query = $_GET['query'];
+            $query = $_GET['key'];
         } else {
             $query = "";
         }

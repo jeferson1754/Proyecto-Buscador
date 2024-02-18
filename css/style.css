@@ -43,7 +43,6 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f4f4f4;
 
 }
 
@@ -116,4 +115,34 @@ a {
 /* Estilos para el icono de lupa */
 .search-form button i {
   font-size: 16px;
+}
+
+/*COLORES DE FONDO*/
+/* Definir clases de colores */
+.rojo {
+  background-color: #BD6B73;
+}
+
+.azul {
+  background-color: #4F5D75;
+}
+
+.verde {
+  background-color: #A8C7BB;
+}
+
+.amarillo {
+  background-color: #E3DC95;
+}
+
+.gris {
+  background-color: #909590;
+}
+
+.cafe {
+  background-color: #7D6D61;
+}
+
+.naranjo {
+  background-color: #FF8360;
 }
