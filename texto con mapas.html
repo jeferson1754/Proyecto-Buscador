@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ubicación Actual y Mapa</title>
+    <style>
+      /* Estilos para el contenedor del mapa */
+      #mapa {
+        height: 400px;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Contenedor para el mapa -->
+    <div id="mapa"></div>
+    <!-- Contenedor para mostrar la dirección -->
+    <div id="direccion"></div>
+
+    <script>
+      // Función para mostrar el mapa y la dirección
+      function mostrarMapa() {
+        // Verificar si el navegador soporta la geolocalización
+        if ("geolocation" in navigator) {
+          // Obtener la ubicación actual del usuario
+          navigator.geolocation.getCurrentPosition(function (position) {
+            // Obtener la latitud y longitud
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            // Crear una instancia del mapa
+            var map = new google.maps.Map(document.getElementById("mapa"), {
+              center: { lat: latitude, lng: longitude },
+              zoom: 15, // Zoom de 15 para mostrar los alrededores
+            });
+
+            // Crear un marcador para la ubicación del usuario
+            var marker = new google.maps.Marker({
+              position: { lat: latitude, lng: longitude },
+              map: map,
+              title: "Ubicación Actual",
+            });
+
+            // Mostrar la dirección en el contenedor
+            fetch(
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyC7qnZOq1PZeVvv12wBxEG2y95MygpVop0`
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                const address = data.results[0].formatted_address;
+                document.getElementById("direccion").textContent =
+                  "Dirección: " + address;
+              })
+              .catch((error) => {
+                console.error("Error al obtener la ubicación:", error);
+              });
+          });
+        } else {
+          // Si el navegador no soporta la geolocalización, mostrar un mensaje de error
+          var direccionDiv = document.getElementById("direccion");
+          direccionDiv.textContent =
+            "La geolocalización no está disponible en este navegador.";
+        }
+      }
+
+      // Llamar a la función para mostrar el mapa y la dirección al cargar la página
+      mostrarMapa();
+    </script>
+
+    <!-- Cargar la API de Google Maps JavaScript -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7qnZOq1PZeVvv12wBxEG2y95MygpVop0&callback=mostrarMapa"></script>
+  </body>
+</html>
