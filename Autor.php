@@ -21,54 +21,91 @@
         $limit = 5;
         $query = isset($_GET['key']) ? $_GET['key'] : '';
 
-        function displayTableop($sql, $limit, $conexion)
+        function displayTable_op($sql, $conexion)
         {
             $result = mysqli_query($conexion, $sql);
             if ($result && mysqli_num_rows($result) > 0) {
-                while ($mostrar = mysqli_fetch_array($result)) {
-                    $id_Registros = $mostrar['ID'];
         ?>
-                    <tr>
-                        <td><?php echo $mostrar['Nombre'] ?></td>
-                        <td>OP <?php echo $mostrar['Opening'] ?></td>
-                        <td><?php echo $mostrar['Cancion'] ?></td>
-                        <td><?php echo $mostrar['Autor'] ?></td>
-                        <td>
-                            <div class="container" style="width: 100%; height: 100px;">
-                                <iframe src="/Anime/OP/ejemplo.php?id=<?php echo $id_Registros; ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
-                            </div>
-                        </td>
-                    </tr>
-                <?php
-                }
+                <table id="example" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Opening</th>
+                            <th>Cancion</th>
+                            <th>Autor</th>
+                        </tr>
+                    </thead>
+                    <?php
+                    while ($mostrar = mysqli_fetch_array($result)) {
+                        $id_Registros = $mostrar['ID'];
+                    ?>
+                        <tr>
+                            <td><?php echo $mostrar['Nombre'] ?></td>
+                            <td>OP <?php echo $mostrar['Opening'] ?></td>
+                            <td><?php echo $mostrar['Cancion'] ?></td>
+                            <td><?php echo $mostrar['Autor'] ?></td>
+                            <td>
+                                <div class="container" style="width: 100%; height: 100px;">
+                                    <iframe src="/Anime/OP/ejemplo.php?id=<?php echo $id_Registros; ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </table>
+            <?php
             } else {
-                echo "<tr><td colspan='5' style='text-align:center'>No se encontraron resultados en la base de datos.</td></tr>";
+                echo "<div style='text-align:center'>No se encontraron resultados en la base de datos.</div>";
             }
         }
 
-        function displayTabled($sql, $limit, $conexion)
+        function displayTable_ed($sql, $conexion)
         {
             $result = mysqli_query($conexion, $sql);
             if ($result && mysqli_num_rows($result) > 0) {
-                while ($mostrar = mysqli_fetch_array($result)) {
-                    $id_Registros = $mostrar['ID'];
-                ?>
-                    <tr>
-                        <td><?php echo $mostrar['Nombre'] ?></td>
-                        <td>ED <?php echo $mostrar['Ending'] ?></td>
-                        <td><?php echo $mostrar['Cancion'] ?></td>
-                        <td><?php echo $mostrar['Autor'] ?></td>
-                        <td>
-                            <div class="container" style="width: 100%; height: 100px;">
-                                <iframe src="/Anime/ED/ejemplo.php?id=<?php echo $id_Registros; ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
-                            </div>
-                        </td>
-                    </tr>
+            ?>
+                <table id="example" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Ending</th>
+                            <th>Cancion</th>
+                            <th>Autor</th>
+                        </tr>
+                    </thead>
+                    <?php
+                    while ($mostrar = mysqli_fetch_array($result)) {
+                        $id_Registros = $mostrar['ID'];
+                    ?>
+
+                        <tr>
+                            <td><?php echo $mostrar['Nombre'] ?></td>
+                            <td>ED <?php echo $mostrar['Ending'] ?></td>
+                            <td><?php echo $mostrar['Cancion'] ?></td>
+                            <td><?php echo $mostrar['Autor'] ?></td>
+                            <td>
+                                <div class="container" style="width: 100%; height: 100px;">
+                                    <iframe src="/Anime/ED/ejemplo.php?id=<?php echo $id_Registros; ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                                </div>
+                            </td>
+                        </tr>
+
+                    <?php
+                    }
+                    ?>
+                </table>
         <?php
-                }
             } else {
-                echo "<tr><td colspan='5' style='text-align:center'>No se encontraron resultados en la base de datos.</td></tr>";
+                echo "<div style='text-align:center'>No se encontraron resultados en la base de datos.</div>";
             }
+        }
+
+        function obtenerTotalResultados($sql, $conexion)
+        {
+            $resultTotal = mysqli_query($conexion, $sql);
+            $totalRow = mysqli_fetch_assoc($resultTotal);
+            return $totalRow['conteo'];
         }
 
         ?>
@@ -81,102 +118,76 @@
             </div>
         </div>
         <div class="info-container active" id="info-option-1">
-            <h2>Openings</h2>
-            <table id="example" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Opening</th>
-                        <th>Cancion</th>
-                        <th>Autor</th>
-                    </tr>
-                </thead>
-                <?php
-                $sql = "SELECT op.*, autor.Autor FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
-                displayTableop($sql, $limit, $conexion);
-                ?>
-            </table>
-            <br>
-            <h2>Endings</h2>
-            <table id="example" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Ending</th>
-                        <th>Cancion</th>
-                        <th>Autor</th>
-                    </tr>
-                </thead>
-                <?php
-                $sql = "SELECT ed.*, autor.Autor FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
-                displayTabled($sql, $limit, $conexion);
-                ?>
-            </table>
+            <?php
+            $sql2 = "SELECT COUNT(*) as conteo FROM op JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
+            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+            $totalResultadosOP = obtenerTotalResultados( $sql2, $conexion);
+
+            ?>
+            <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
+
+            <?php
+            $sql = "SELECT op.*, autor.Autor FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+            displayTable_op($sql, $conexion);
+
+            $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
+            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+            $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
+
+            ?>
+            <h2>Endings-<?php echo $totalResultadosED; ?></h2>
+
+            <?php
+            $sql = "SELECT ed.*, autor.Autor FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+            displayTable_ed($sql, $conexion);
+            ?>
         </div>
         <div class="info-container" id="info-option-2">
-            <h2>Openings</h2>
-            <table id="example" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Opening</th>
-                        <th>Cancion</th>
-                        <th>Autor</th>
-                    </tr>
-                </thead>
-                <?php
-                $sql = "SELECT op.*, autor.Autor FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
-                displayTableop($sql, $limit, $conexion);
-                ?>
-            </table>
-            <br>
-            <h2>Endings</h2>
-            <table id="example" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Ending</th>
-                        <th>Cancion</th>
-                        <th>Autor</th>
-                    </tr>
-                </thead>
-                <?php
-                $sql = "SELECT ed.*, autor.Autor FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
-                displayTabled($sql, $limit, $conexion);
-                ?>
-            </table>
+
+            <?php
+            $sql2 = "SELECT COUNT(*) as conteo FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
+            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+            $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
+
+            ?>
+            <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
+
+            <?php
+            $sql = "SELECT op.*, autor.Autor FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+            displayTable_op($sql, $conexion);
+            $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
+            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+            $totalResultadosED = obtenerTotalResultados( $sql2, $conexion);
+            ?>
+            <h2>Endings-<?php echo $totalResultadosED; ?></h2>
+
+            <?php
+            $sql = "SELECT ed.*, autor.Autor FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+            displayTable_ed($sql, $conexion);
+            ?>
         </div>
         <div class="info-container" id="info-option-3">
-            <h2>Openings</h2>
-            <table id="example" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Opening</th>
-                        <th>Cancion</th>
-                        <th>Autor</th>
-                    </tr>
-                </thead>
-                <?php
-                $sql = "SELECT op.*, autor.Autor FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
-                displayTableop($sql, $limit, $conexion);
-                ?>
-            </table>
-            <br>
-            <h2>Endings</h2>
-            <table id="example" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Ending</th>
-                        <th>Cancion</th>
-                        <th>Autor</th>
-                    </tr>
-                </thead>
-                <?php
-                $sql = "SELECT ed.*, autor.Autor FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
-                displayTabled($sql, $limit, $conexion);
-                ?>
+            <?php
+            $sql2 = "SELECT COUNT(*) as conteo FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
+            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+            $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
+
+            ?>
+            <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
+
+            <?php
+            $sql = "SELECT op.*, autor.Autor FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+            displayTable_op($sql, $conexion);
+            $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
+            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+            $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
+            ?>
+            <h2>Endings-<?php echo $totalResultadosED; ?></h2>
+
+            <?php
+            $sql = "SELECT ed.*, autor.Autor FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+            displayTable_ed($sql, $conexion);
+            ?>
             </table>
         </div>
     </div>
