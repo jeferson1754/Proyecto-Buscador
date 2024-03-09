@@ -1,221 +1,246 @@
 .deudores {
-    display: flex;
-    justify-content: space-around;
-    /* Distribuye los elementos de manera uniforme en el eje x */
-    flex-wrap: wrap;
-    /* Permite que los elementos se envuelvan a una nueva línea cuando no hay espacio suficiente */
-    /* Agrega un espacio alrededor de los elementos */
+  display: flex;
+  justify-content: space-around;
+  /* Distribuye los elementos de manera uniforme en el eje x */
+  flex-wrap: wrap;
+  /* Permite que los elementos se envuelvan a una nueva línea cuando no hay espacio suficiente */
+  /* Agrega un espacio alrededor de los elementos */
 }
-
 
 .persona-container {
-    text-align: center;
-    border: 2px solid #ccc;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    min-width: 30%;
-    /* Puedes ajustar el ancho según tus preferencias */
-    margin: 10px;
-    text-transform: capitalize;
-    box-sizing: border-box;
-    /* Espaciado entre los elementos */
+  text-align: center;
+  border: 2px solid #ccc;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  min-width: 30%;
+  /* Puedes ajustar el ancho según tus preferencias */
+  margin: 10px;
+  text-transform: capitalize;
+  box-sizing: border-box;
+  /* Espaciado entre los elementos */
 }
-
 
 .nombre-persona {
-    font-size: 1.5em;
-    font-weight: bold;
+  font-size: 1.5em;
+  font-weight: bold;
 }
-
 
 /* Quitar el subrayado del enlace */
 a {
-    text-decoration: none !important;
-    color: black !important;
+  text-decoration: none !important;
+  color: black !important;
 }
 
 .contenido a {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f4f4f4;
-
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
 }
 
-
 @media (max-width: 600px) {
+  .deudores {
+    width: 100%;
+  }
 
-    .deudores {
-        width: 100%;
-    }
-
-    .persona-container {
-        width: 100%;
-    }
+  .persona-container {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    table {
-        width: 100%;
-    }
+  table {
+    width: 100%;
+  }
 
-    thead {
-        display: none;
-    }
+  thead {
+    display: none;
+  }
 
-    tr:nth-of-type(2n) {
-        background-color: inherit !important;
-    }
+  tr:nth-of-type(2n) {
+    background-color: inherit !important;
+  }
 
-    tr td:first-child {
-        background: #f0f0f0 !important;
-        font-weight: bold;
-        font-size: 1.3em;
-    }
+  tr td:first-child {
+    background: #f0f0f0 !important;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
 
-    tr:hover td {
-        background-color: #369681 !important;
-        color: white !important;
-    }
+  tr:hover td {
+    background-color: #369681 !important;
+    color: white !important;
+  }
 
-    /*   */
-    tbody td {
-        display: block;
-        text-align: center !important;
-    }
+  /*   */
+  tbody td {
+    display: block;
+    text-align: center !important;
+  }
 
+  tbody td:before {
+    content: attr(data-th) !important;
+    display: block;
+    text-align: center !important;
+  }
 
-    tbody td:before {
-        content: attr(data-th) !important;
-        display: block;
-        text-align: center !important;
-    }
+  .op {
+    width: 10%;
+  }
 
+  .max {
+    width: auto;
+  }
 
-    .op {
-        width: 10%;
-    }
+  /*Letras de "Mostrando tanto de un total XD"*/
+  div#example_info {
+    font-size: 10px;
+  }
 
-    .max {
-        width: auto;
-    }
+  .ocultar {
+    display: none !important;
+  }
 
-    /*Letras de "Mostrando tanto de un total XD"*/
-    div#example_info {
-        font-size: 10px;
-    }
-
-    .ocultar {
-        display: none !important;
-    }
-
-    .mostrar {
-        width: 100%;
-        height: 50px;
-        margin-bottom: 10px;
-    }
-
-
+  .mostrar {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+  }
 }
 
 /*LINEA */
 .menu-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-options {
-    display: flex;
+  display: flex;
 }
 
 .menu-option {
-    cursor: pointer;
-    margin: 10px;
-    padding-bottom: 5px;
-    position: relative;
+  cursor: pointer;
+  margin: 10px;
+  padding-bottom: 5px;
+  position: relative;
 }
 
 .menu-line {
-    height: 2px;
-    background-color: #247BA0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 104%;
-    transform: translateX(0);
-    transition: transform 0.3s ease-in-out;
+  height: 2px;
+  background-color: #247ba0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 104%;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
 }
 
 .menu-option.active .menu-line {
-    transform: translateX(150%);
-    /* Mover la línea al 100% del ancho del menú-option */
+  transform: translateX(150%);
+  /* Mover la línea al 100% del ancho del menú-option */
 }
 
 .info-container {
-    display: none;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 18px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    /* Sombra para el contenedor */
+  display: none;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* Sombra para el contenedor */
 }
 
 .info-container.active {
-    display: block;
-    width: 100%;
-    /* Ajusta el ancho según tus necesidades */
-    height: auto;
+  display: block;
+  width: 100%;
+  /* Ajusta el ancho según tus necesidades */
+  height: auto;
 }
 
 .search-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    /* Espacio inferior entre el formulario y otros elementos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  /* Espacio inferior entre el formulario y otros elementos */
 }
 
 .search-form input[type="search"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
-    /* Ancho del campo de búsqueda */
-    margin-right: 5px;
-    /* Espacio derecho entre el campo de búsqueda y el botón */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  /* Ancho del campo de búsqueda */
+  margin-right: 5px;
+  /* Espacio derecho entre el campo de búsqueda y el botón */
 }
 
 .search-form button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    /* Color de fondo del botón */
-    color: #fff;
-    /* Color del texto del botón */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 10px 15px;
+  background-color: #007bff;
+  /* Color de fondo del botón */
+  color: #fff;
+  /* Color del texto del botón */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .search-form button:hover {
-    background-color: #0056b3;
-    /* Cambio de color de fondo al pasar el mouse sobre el botón */
+  background-color: #0056b3;
+  /* Cambio de color de fondo al pasar el mouse sobre el botón */
 }
 
 /* Estilos para el icono de lupa */
 .search-form button i {
-    font-size: 16px;
+  font-size: 16px;
 }
 
-h2{
-    text-align: center;
-    font-size: 40px !important;
+h2 {
+  text-align: center;
+  font-size: 40px !important;
+}
+
+.button-container {
+  /* Bordes redondeados */
+  overflow: hidden;
+  /* Evita que los bordes se extiendan al agregar colores */
+}
+
+.button-container button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Transición suave */
+  border: 1px solid #ccc;
+  /* Borde suave */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  overflow: hidden;
+  color: white;
+  height: 35px;
+}
+
+.minus {
+  border-right: 1px solid #ccc;
+  background-color: #f71735;
+  /* Borde derecho para separar los botones */
+}
+
+.plus {
+  border-left: 1px solid #ccc;
+  background-color: #279af1;
+  /* Borde izquierdo para separar los botones */
 }

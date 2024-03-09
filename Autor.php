@@ -46,7 +46,7 @@
                             <td><?php echo $mostrar['Cancion'] ?></td>
                             <td><?php echo $mostrar['Autor'] ?></td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newModalop<?php echo $id_Registros; ?>">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newModal<?php echo $id_Registros; ?>">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
                             </td>
@@ -58,7 +58,7 @@
                         </tr>
 
                     <?php
-                        include('modalop.php');
+                        include('modal.php');
                     }
                     ?>
                 </table>
@@ -93,7 +93,7 @@
                             <td><?php echo $mostrar['Cancion'] ?></td>
                             <td><?php echo $mostrar['Autor'] ?></td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newModaled<?php echo $id_Registros; ?>">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newModal<?php echo $id_Registros; ?>">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
                             </td>
@@ -104,7 +104,7 @@
                             </td>
                         </tr>
                     <?php
-                        include('modaled.php');
+                        include('modal.php');
                     }
                     ?>
                 </table>
@@ -221,7 +221,7 @@
             <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
 
             <?php
-            $sql = "SELECT op.*, autor.Autor, autor.Canciones_Musica FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+            $sql = "SELECT op.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
             displayTable_modalop($sql, $conexion);
 
             $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
@@ -232,7 +232,7 @@
             <h2>Endings-<?php echo $totalResultadosED; ?></h2>
 
             <?php
-            $sql = "SELECT ed.*, autor.Autor, autor.Canciones_Musica FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+            $sql = "SELECT ed.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
             displayTable_modaled($sql, $conexion);
             ?>
         </div>
