@@ -29,5 +29,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "El formulario no fue enviado correctamente.";
 }
 
+// Consulta SQL para actualizar los registros en la tabla 'autor'
+$sql = "UPDATE autor SET Copia_Autor='SI' WHERE (Canciones + Canciones_Musica) >= 5";
+
+// Ejecutar la consulta
+if ($conexion->query($sql) === TRUE) {
+    echo "Los registros se actualizaron correctamente.";
+} else {
+    echo "Error al actualizar los registros: " . $conn->error;
+}
+
 header("Location: autor.php");
 exit();
