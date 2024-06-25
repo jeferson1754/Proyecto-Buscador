@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <?php
+    require 'index.php';
+    ?>
     <form action="#" method="GET" class="search-form">
         <input type="search" name="key" placeholder="Buscar...">
         <button type="submit"><i class="fas fa-search"></i></button>
@@ -26,7 +29,7 @@
         {
             $result = mysqli_query($conexion, $sql);
             if ($result && mysqli_num_rows($result) > 0) {
-        ?>
+            ?>
                 <table id="example" style="width:100%">
                     <thead>
                         <tr>

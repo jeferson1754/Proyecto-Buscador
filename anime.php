@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <?php
+    require 'index.php';
+    ?>
     <form action="#" method="GET" class="search-form">
         <input type="search" name="query" placeholder="Buscar...">
         <button type="submit"><i class="fas fa-search"></i></button>
@@ -181,7 +184,7 @@
             while ($fila = mysqli_fetch_assoc($resultado_horario)) {
                 echo "<div class='contenido'><br>";
                 echo "<a href='/Anime/Horarios/horarios.php?anis=" . $fila['Num'] . "&filtrar=' target='_blanck'>";
-                echo $fila['Nombre'] . " ".$fila['Temporada'] . " " . $fila['Ano'] . "<br>";
+                echo $fila['Nombre'] . " " . $fila['Temporada'] . " " . $fila['Ano'] . "<br>";
                 echo "</a>";
                 echo "</div>";
                 $resultados_encontrados_horario = true;
