@@ -29,7 +29,7 @@
         {
             $result = mysqli_query($conexion, $sql);
             if ($result && mysqli_num_rows($result) > 0) {
-            ?>
+        ?>
                 <table id="example" style="width:100%">
                     <thead>
                         <tr>
@@ -215,77 +215,87 @@
             </div>
         </div>
         <div class="info-container active" id="info-option-1">
-            <?php
-            $sql2 = "SELECT COUNT(*) as conteo FROM op JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
-            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
-            $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
+            <div class="column">
+                <?php
+                $sql2 = "SELECT COUNT(*) as conteo FROM op JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
+                // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+                $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
 
-            ?>
-            <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
+                ?>
+                <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
 
-            <?php
-            $sql = "SELECT op.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
-            displayTable_modalop($sql, $conexion);
+                <?php
+                $sql = "SELECT op.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+                displayTable_modalop($sql, $conexion);
 
-            $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
-            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
-            $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
+                $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
+                // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+                $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
 
-            ?>
-            <h2>Endings-<?php echo $totalResultadosED; ?></h2>
+                ?>
+            </div>
+            <div class="column">
+                <h2>Endings-<?php echo $totalResultadosED; ?></h2>
 
-            <?php
-            $sql = "SELECT ed.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
-            displayTable_modaled($sql, $conexion);
-            ?>
+                <?php
+                $sql = "SELECT ed.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+                displayTable_modaled($sql, $conexion);
+                ?>
+            </div>
         </div>
         <div class="info-container" id="info-option-2">
+            <div class="column">
+                <?php
+                $sql2 = "SELECT COUNT(*) as conteo FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
+                // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+                $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
 
-            <?php
-            $sql2 = "SELECT COUNT(*) as conteo FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
-            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
-            $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
+                ?>
+                <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
 
-            ?>
-            <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
+                <?php
+                $sql = "SELECT op.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+                displayTable_op($sql, $conexion);
+                $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
+                // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+                $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
+                ?>
+            </div>
+            <div class="column">
+                <h2>Endings-<?php echo $totalResultadosED; ?></h2>
 
-            <?php
-            $sql = "SELECT op.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
-            displayTable_op($sql, $conexion);
-            $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
-            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
-            $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
-            ?>
-            <h2>Endings-<?php echo $totalResultadosED; ?></h2>
-
-            <?php
-            $sql = "SELECT ed.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
-            displayTable_ed($sql, $conexion);
-            ?>
+                <?php
+                $sql = "SELECT ed.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+                displayTable_ed($sql, $conexion);
+                ?>
+            </div>
         </div>
         <div class="info-container" id="info-option-3">
-            <?php
-            $sql2 = "SELECT COUNT(*) as conteo FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
-            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
-            $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
+            <div class="column">
+                <?php
+                $sql2 = "SELECT COUNT(*) as conteo FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC;";
+                // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+                $totalResultadosOP = obtenerTotalResultados($sql2, $conexion);
 
-            ?>
-            <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
+                ?>
+                <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
 
-            <?php
-            $sql = "SELECT op.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
-            displayTable_op($sql, $conexion);
-            $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
-            // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
-            $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
-            ?>
-            <h2>Endings-<?php echo $totalResultadosED; ?></h2>
+                <?php
+                $sql = "SELECT op.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE op.Cancion LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+                displayTable_op($sql, $conexion);
+                $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
+                // Llamada a la función para obtener el conteo total de resultados de 'op' y 'ed'
+                $totalResultadosED = obtenerTotalResultados($sql2, $conexion);
+                ?>
+            </div>
+            <div class="column">
+                <h2>Endings-<?php echo $totalResultadosED; ?></h2>
 
-            <?php
-            $sql = "SELECT ed.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
-            displayTable_ed($sql, $conexion);
-            ?>
-            </table>
+                <?php
+                $sql = "SELECT ed.*, autor.Autor,(autor.Canciones + autor.Canciones_Musica) as suma FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE ed.Cancion LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+                displayTable_ed($sql, $conexion);
+                ?>
+            </div>
         </div>
     </div>
 

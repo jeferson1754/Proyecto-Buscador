@@ -42,7 +42,7 @@ a {
   background-color: #f4f4f4;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .deudores {
     width: 100%;
   }
@@ -50,9 +50,7 @@ a {
   .persona-container {
     width: 100%;
   }
-}
 
-@media screen and (max-width: 600px) {
   table {
     width: 100%;
   }
@@ -71,10 +69,7 @@ a {
     font-size: 1.3em;
   }
 
-  tr:hover td {
-    background-color: #369681 !important;
-    color: white !important;
-  }
+
 
   /*   */
   tbody td {
@@ -110,6 +105,19 @@ a {
     height: 50px;
     margin-bottom: 10px;
   }
+
+  .info-container.active {
+    display: block !important;
+  }
+
+
+  .column {
+    width: 100% !important;
+  }
+}
+
+thead {
+  text-align: center;
 }
 
 /*LINEA */
@@ -157,7 +165,7 @@ a {
 }
 
 .info-container.active {
-  display: block;
+  display: flex;
   width: 100%;
   /* Ajusta el ancho según tus necesidades */
   height: auto;
@@ -207,7 +215,7 @@ a {
 
 h2 {
   text-align: center;
-  font-size: 40px !important;
+  font-size: 30px !important;
 }
 
 .button-container {
@@ -243,4 +251,29 @@ h2 {
   border-left: 1px solid #ccc;
   background-color: #279af1;
   /* Borde izquierdo para separar los botones */
+}
+
+.column {
+  width: 50%;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.column:first-child {
+  background-color: #bfc0c0;
+}
+
+.column:first-child tr:hover td {
+  background-color: #8D918B !important;
+  color: white !important;
+}
+
+.column:last-child {
+  background-color: #dddddd;
+}
+
+.column:last-child tr:hover td {
+  background-color: #829399 !important;
+  color: white !important;
 }

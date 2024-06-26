@@ -26,7 +26,7 @@
                     <div class="right"></div>
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link" href="anime.php"><i class="fas fa-tachometer-alt"></i>Anime</a>
+                    <a class="nav-link" href="anime.php"><i class="fa-solid fa-magnifying-glass"></i>Anime</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="autor.php"><i class="far fa-address-book"></i>Autores</a>
