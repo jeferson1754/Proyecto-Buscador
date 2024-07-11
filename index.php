@@ -26,6 +26,9 @@
                     <div class="right"></div>
                 </div>
                 <li class="nav-item">
+                    <a class="nav-link" href="../Anime/"><i class="fa-solid fa-arrow-left"></i>Volver a Directorio de Anime</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="anime.php"><i class="fa-solid fa-magnifying-glass"></i>Anime</a>
                 </li>
                 <li class="nav-item">
