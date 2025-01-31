@@ -44,7 +44,7 @@
                         $id_Registros = $mostrar['ID'];
                     ?>
                         <tr>
-                            <td><?php echo $mostrar['Nombre'] ?></td>
+                            <td><?php echo $mostrar['anime'] ?> <?php echo $mostrar['Temporada'] ?></td>
                             <td>OP <?php echo $mostrar['Opening'] ?></td>
                             <td><?php echo $mostrar['Cancion'] ?></td>
                             <td><?php echo $mostrar['Autor'] ?></td>
@@ -91,7 +91,7 @@
                     ?>
 
                         <tr>
-                            <td><?php echo $mostrar['Nombre'] ?></td>
+                            <td><?php echo $mostrar['anime'] ?> <?php echo $mostrar['Temporada'] ?></td>
                             <td>ED <?php echo $mostrar['Ending'] ?></td>
                             <td><?php echo $mostrar['Cancion'] ?></td>
                             <td><?php echo $mostrar['Autor'] ?></td>
@@ -136,7 +136,7 @@
                         $id_Registros = $mostrar['ID'];
                     ?>
                         <tr>
-                            <td><?php echo $mostrar['Nombre'] ?></td>
+                            <td><?php echo $mostrar['anime'] ?> <?php echo $mostrar['Temporada'] ?></td>
                             <td>OP <?php echo $mostrar['Opening'] ?></td>
                             <td><?php echo $mostrar['Cancion'] ?></td>
                             <td><?php echo $mostrar['Autor'] ?></td>
@@ -178,7 +178,7 @@
                     ?>
 
                         <tr>
-                            <td><?php echo $mostrar['Nombre'] ?></td>
+                            <td><?php echo $mostrar['anime'] ?> <?php echo $mostrar['Temporada'] ?></td>
                             <td>ED <?php echo $mostrar['Ending'] ?></td>
                             <td><?php echo $mostrar['Cancion'] ?></td>
                             <td><?php echo $mostrar['Autor'] ?></td>
@@ -225,7 +225,10 @@
                 <h2>Openings-<?php echo $totalResultadosOP; ?></h2>
 
                 <?php
-                $sql = "SELECT op.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `op` JOIN autor ON op.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+                $sql = "SELECT op.*, autor.Autor, autor.Canciones_Musica,autor.Canciones,anime.Nombre as anime  FROM `op` 
+                JOIN autor ON op.ID_Autor=autor.ID 
+                JOIN anime ON op.ID_Anime= anime.id 
+                WHERE autor.Autor LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
                 displayTable_modalop($sql, $conexion);
 
                 $sql2 = "SELECT COUNT(*) as conteo FROM ed JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC;";
@@ -238,7 +241,10 @@
                 <h2>Endings-<?php echo $totalResultadosED; ?></h2>
 
                 <?php
-                $sql = "SELECT ed.*, autor.Autor, autor.Canciones_Musica,autor.Canciones FROM `ed` JOIN autor ON ed.ID_Autor=autor.ID WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+                $sql = "SELECT ed.*, autor.Autor, autor.Canciones_Musica,autor.Canciones,anime.Nombre as anime FROM `ed` 
+                JOIN autor ON ed.ID_Autor=autor.ID
+                JOIN anime ON ed.ID_Anime= anime.id 
+                 WHERE autor.Autor LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
                 displayTable_modaled($sql, $conexion);
                 ?>
             </div>

@@ -36,27 +36,36 @@
             $resultado_mangas = mysqli_query($conexion, $sql_mangas);
 
             // Consulta para buscar en la tabla anime
-            $sql_anime = "SELECT * FROM anime WHERE Anime LIKE '%$query%' ORDER BY `anime`.`ID` DESC limit $limit";
+            $sql_anime = "SELECT * FROM anime WHERE Nombre LIKE '%$query%' ORDER BY `anime`.`id` DESC limit $limit";
             $resultado_anime = mysqli_query($conexion, $sql_anime);
 
             // Consulta para buscar en la tabla pendientes_mangas
             $sql_pendientes = "SELECT * FROM pendientes_manga WHERE Nombre LIKE '%$query%' ORDER BY `pendientes_manga`.`ID` DESC limit $limit";
             $resultado_pendientes = mysqli_query($conexion, $sql_pendientes);
 
+
             // Consulta para buscar en la tabla op
-            $sql_op = "SELECT * FROM op WHERE Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+            $sql_op = "SELECT * FROM op INNER JOIN anime on op.ID_Anime = anime.id WHERE anime.Nombre LIKE '%$query%' ORDER BY `op`.`ID` DESC limit $limit";
+
             $resultado_op = mysqli_query($conexion, $sql_op);
 
             // Consulta para buscar en la tabla ed
-            $sql_ed = "SELECT * FROM ed WHERE Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
+            $sql_ed = "SELECT * FROM ed INNER JOIN anime on ed.ID_Anime = anime.id WHERE anime.Nombre LIKE '%$query%' ORDER BY `ed`.`ID` DESC limit $limit";
             $resultado_ed = mysqli_query($conexion, $sql_ed);
 
+
             // Consulta para buscar en la tabla peliculas
-            $sql_peliculas = "SELECT * FROM peliculas WHERE Nombre LIKE '%$query%' ORDER BY `peliculas`.`ID` DESC limit $limit";
+            $sql_peliculas = "SELECT peliculas.Nombre as nombre_pelicula, anime.Nombre FROM peliculas LEFT JOIN anime on peliculas.ID_Anime = anime.id WHERE anime.Nombre LIKE '%$query%' OR  peliculas.Nombre LIKE '%$query%' ORDER BY `peliculas`.`ID` DESC limit $limit";
+            
+
             $resultado_peliculas = mysqli_query($conexion, $sql_peliculas);
 
             // Consulta para buscar en la tabla horarios
-            $sql_horario = "SELECT horario.Nombre,num_horario.* FROM horario INNER JOIN num_horario ON horario.num_horario = num_horario.Num WHERE Nombre LIKE '%$query%' ORDER BY `horario`.`ID` DESC limit $limit";
+            $sql_horario = "SELECT anime.Nombre,horario.Temporada,num_horario.* FROM horario 
+            INNER JOIN anime ON horario.ID_Anime = anime.id 
+            INNER JOIN num_horario ON horario.num_horario = num_horario.Num 
+            WHERE anime.Nombre LIKE '%$query%' ORDER BY `horario`.`ID` DESC limit $limit";
+
             $resultado_horario = mysqli_query($conexion, $sql_horario);
 
 
@@ -93,8 +102,8 @@
             echo "<div class='nombre-persona'> Anime<br> </div>";
             while ($fila = mysqli_fetch_assoc($resultado_anime)) {
                 echo "<div class='contenido'><br>";
-                echo "<a href='/Anime/?busqueda_anime=" . $fila['Anime'] . "&buscar=' target='_blanck'>";
-                echo $fila['Anime'] . "<br>";
+                echo "<a href='/Anime/?busqueda_anime=" . $fila['Nombre'] . "&buscar=' target='_blanck'>";
+                echo $fila['Nombre'] . "<br>";
                 echo "</a>";
                 echo "</div>";
                 $resultados_encontrados_anime = true;
@@ -166,7 +175,7 @@
             while ($fila = mysqli_fetch_assoc($resultado_peliculas)) {
                 echo "<div class='contenido'><br>";
                 echo "<a href='/Anime/peliculas/' target='_blanck'>";
-                echo $fila['Nombre'] . "<br>";
+                echo $fila['Nombre'] . " " . $fila['nombre_pelicula'] . "<br>";
                 echo "</a>";
                 echo "</div>";
                 $resultados_encontrados_peliculas = true;
@@ -184,7 +193,7 @@
             while ($fila = mysqli_fetch_assoc($resultado_horario)) {
                 echo "<div class='contenido'><br>";
                 echo "<a href='/Anime/Horarios/horarios.php?anis=" . $fila['Num'] . "&filtrar=' target='_blanck'>";
-                echo $fila['Nombre'] . " " . $fila['Temporada'] . " " . $fila['Ano'] . "<br>";
+                echo $fila['Temporada'] . " " . $fila['Ano'] . "<br>";
                 echo "</a>";
                 echo "</div>";
                 $resultados_encontrados_horario = true;
