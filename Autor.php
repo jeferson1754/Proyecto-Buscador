@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Song Search</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/8846655159.js" crossorigin="anonymous"></script>
     <style>
         .tab-button {
             transition: all 0.3s ease;
@@ -35,9 +34,13 @@
             border: 1px solid #e5e7eb;
         }
 
-        .iframe-container {
-            width: 100%;
-            height: 100px;
+        table th {
+            text-align: center;
+        }
+
+        iframe {
+            width: 100px;
+            height: 150px;
             overflow: hidden;
         }
     </style>
@@ -57,6 +60,7 @@ function displayTable_op($sql, $conexion)
                     <th>Opening</th>
                     <th>Cancion</th>
                     <th>Autor</th>
+                    <th>Datos</th>
                 </tr>
             </thead>
             <?php
@@ -70,8 +74,8 @@ function displayTable_op($sql, $conexion)
                     <td><?php echo $mostrar['Autor'] ?></td>
 
                     <td>
-                        <div class="container" style="width: 100%; height: 100px;">
-                            <iframe src="/Anime/OP/ejemplo.php?id=<?php echo $id_Registros; ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                        <div class="container">
+                            <iframe src="./Iframe/ejemplo_op.php?id=<?php echo $id_Registros; ?>" frameborder="0"></iframe>
                         </div>
                     </td>
                 </tr>
@@ -98,6 +102,7 @@ function displayTable_ed($sql, $conexion)
                     <th>Ending</th>
                     <th>Cancion</th>
                     <th>Autor</th>
+                    <th>Datos</th>
                 </tr>
             </thead>
             <?php
@@ -111,8 +116,8 @@ function displayTable_ed($sql, $conexion)
                     <td><?php echo $mostrar['Cancion'] ?></td>
                     <td><?php echo $mostrar['Autor'] ?></td>
                     <td>
-                        <div class="container" style="width: 100%; height: 100px;">
-                            <iframe src="/Anime/ED/ejemplo.php?id=<?php echo $id_Registros; ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                        <div class="container">
+                            <iframe src="./Iframe/ejemplo_ed.php?id=<?php echo $id_Registros; ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
                         </div>
                     </td>
                 </tr>
@@ -139,8 +144,8 @@ function obtenerTotalResultados($sql, $conexion)
     <?php
     require 'index.php';
     ?>
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class=" mx-auto px-4 py-8">
+        <div class="mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
             <div class="p-6">
                 <form action="#" method="GET" class="mb-6 flex">
                     <input
